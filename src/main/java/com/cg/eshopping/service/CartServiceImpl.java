@@ -46,8 +46,8 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	@Transactional
-	public CartDTO updateCart(Cart cart) {
-		if (!cartRepository.existsById(cart.getId().intValue())) {
+	public CartDTO updateCart(Cart cart, int id) {
+		if (!cartRepository.existsById(id)) {
 			throw new CartNotFoundException("Cart not found with ID: " + cart.getId());
 		}
 		Cart updatedCart = cartRepository.save(cart);
@@ -76,8 +76,8 @@ public class CartServiceImpl implements CartService {
 	private CartDTO convertEntityToDTO(Cart cart) {
 		CartDTO cartDTO = new CartDTO();
 		cartDTO.setId(cart.getId());
+		cartDTO.setUserId(cart.getUser().getId());
 		cartDTO.setTotalPrice(cart.getTotalPrice());
-		cartDTO.setId(cart.getUser().getId());
 
 		// Convert Items in the Cart to ItemDTOs
 		List<ItemDTO> itemDTOs = cart.getItems().stream().map(this::convertItemToDTO).collect(Collectors.toList());
@@ -91,7 +91,8 @@ public class CartServiceImpl implements CartService {
 		itemDTO.setId(item.getId());
 		itemDTO.setPrice(item.getPrice());
 		itemDTO.setQuantity(item.getQuantity());
-//		itemDTO.setProductId(item.getProduct().getId());
+//		Product product = productRepository.getById(item.getProduct().getId().intValue());
+//		itemDTO.setProduct(product);
 		return itemDTO;
 	}
 

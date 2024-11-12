@@ -9,7 +9,7 @@ public interface CartService {
 
 	CartDTO getcartById(int cartId);
 
-	CartDTO updateCart(Cart cart);
+	CartDTO updateCart(Cart cart, int id);
 
 	List<CartDTO> getallcarts();
 

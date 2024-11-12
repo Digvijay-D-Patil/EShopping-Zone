@@ -34,9 +34,9 @@ public class CartController {
 	}
 
 	@Operation(summary = "Update a cart", description = "Updates an existing cart with new details")
-	@PutMapping("/update")
-	public ResponseEntity<CartDTO> updateCart(@RequestBody Cart cart) {
-		CartDTO updatedCartDTO = cartService.updateCart(cart);
+	@PutMapping("/update/{id}")
+	public ResponseEntity<CartDTO> updateCart(@RequestBody Cart cart, @PathVariable int id) {
+		CartDTO updatedCartDTO = cartService.updateCart(cart, id);
 		return new ResponseEntity<>(updatedCartDTO, HttpStatus.OK); // Returns status 200 OK
 	}
 
