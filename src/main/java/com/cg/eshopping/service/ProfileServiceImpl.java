@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.eshopping.dao.AddressRepository;
 import com.cg.eshopping.dao.ProfileRepository;
 import com.cg.eshopping.dto.AddressDTO;
 import com.cg.eshopping.dto.OrderDTO;
@@ -25,6 +26,9 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private final ProfileRepository profileRepository;
 
+	@Autowired
+	private AddressRepository addressRepository;
+
 	public ProfileServiceImpl(ProfileRepository profileRepository) {
 		this.profileRepository = profileRepository;
 	}
@@ -34,6 +38,9 @@ public class ProfileServiceImpl implements ProfileService {
 	public ProfileDTO createProfile(ProfileDTO profileDTO) {
 		Profile profile = convertDTOToEntity(profileDTO);
 		profile = profileRepository.save(profile);
+		profile.getAddress().setProfile(profile);
+		addressRepository.save(profile.getAddress());
+
 		return convertEntityToDTO(profile);
 	}
 
@@ -56,12 +63,6 @@ public class ProfileServiceImpl implements ProfileService {
 
 		if (profileDTO.getAddress() != null) {
 			existingProfile.setAddress(convertAddressDTOToEntity(profileDTO.getAddress()));
-		}
-
-		// Convert Orders and set profile reference
-		if (profileDTO.getOrders() != null && !profileDTO.getOrders().isEmpty()) {
-			existingProfile.setOrders(profileDTO.getOrders().stream()
-					.map(orderDTO -> convertOrderDTOToEntity(orderDTO, existingProfile)).collect(Collectors.toSet()));
 		}
 
 		Profile updatedProfile = profileRepository.save(existingProfile);
@@ -98,7 +99,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 	// Utility methods for conversions
 
-	private ProfileDTO convertEntityToDTO(Profile profile) {
+	public ProfileDTO convertEntityToDTO(Profile profile) {
 		ProfileDTO profileDTO = new ProfileDTO();
 		profileDTO.setId(profile.getId());
 		profileDTO.setEmail(profile.getEmail());
@@ -114,12 +115,6 @@ public class ProfileServiceImpl implements ProfileService {
 		// Convert Address if present and set it
 		if (profile.getAddress() != null) {
 			profileDTO.setAddress(convertEntityToAddressDTO(profile.getAddress()));
-		}
-
-		// Convert Orders if present and set it
-		if (profile.getOrders() != null && !profile.getOrders().isEmpty()) {
-			profileDTO.setOrders(
-					profile.getOrders().stream().map(this::convertEntityToOrderDTO).collect(Collectors.toSet()));
 		}
 
 		return profileDTO;
@@ -159,7 +154,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	// Convert ProfileDTO to Profile entity
-	private Profile convertDTOToEntity(ProfileDTO profileDTO) {
+	public Profile convertDTOToEntity(ProfileDTO profileDTO) {
 		Profile profile = new Profile();
 		profile.setEmail(profileDTO.getEmail());
 		profile.setPassword(profileDTO.getPassword());
@@ -176,12 +171,6 @@ public class ProfileServiceImpl implements ProfileService {
 			profile.setAddress(convertAddressDTOToEntity(profileDTO.getAddress()));
 		}
 
-		// Convert and set Orders if present
-		if (profileDTO.getOrders() != null && !profileDTO.getOrders().isEmpty()) {
-			profile.setOrders(profileDTO.getOrders().stream()
-					.map(orderDTO -> convertOrderDTOToEntity(orderDTO, profile)).collect(Collectors.toSet()));
-		}
-
 		return profile;
 	}
 
@@ -193,7 +182,7 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	// Convert AddressDTO to Address entity
-	private Address convertAddressDTOToEntity(AddressDTO addressDTO) {
+	public Address convertAddressDTOToEntity(AddressDTO addressDTO) {
 		Address address = new Address();
 		address.setStreet(addressDTO.getStreet());
 		address.setCity(addressDTO.getCity());

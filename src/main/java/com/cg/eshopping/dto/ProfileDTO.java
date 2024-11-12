@@ -1,7 +1,5 @@
 package com.cg.eshopping.dto;
 
-import java.util.Set;
-
 import com.cg.eshopping.entity.Role;
 
 import jakarta.validation.constraints.Email;
@@ -28,7 +26,6 @@ public class ProfileDTO {
 
 	private WalletDTO wallet;
 	private AddressDTO address;
-	private Set<OrderDTO> orders;
 
 	// Getters and Setters
 
@@ -86,14 +83,6 @@ public class ProfileDTO {
 
 	public void setAddress(AddressDTO address) {
 		this.address = address;
-	}
-
-	public Set<OrderDTO> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<OrderDTO> orders) {
-		this.orders = orders;
 	}
 
 }

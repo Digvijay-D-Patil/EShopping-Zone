@@ -13,4 +13,14 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ResponseEntity<String> notFound(ProductNotFoundException ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(CartNotFoundException.class)
+	public ResponseEntity<String> notFound(CartNotFoundException ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
 }

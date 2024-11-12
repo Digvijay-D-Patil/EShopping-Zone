@@ -14,10 +14,13 @@ public class Product {
 	private Long id;
 
 	private String name;
+	private String category;
+	private String productType;
 
 	private String description;
 
 	private Double price;
+	private int StockQuantity;
 
 	@ManyToOne
 	@JoinColumn(name = "merchant_id")
@@ -63,6 +66,30 @@ public class Product {
 
 	public void setMerchant(Profile merchant) {
 		this.merchant = merchant;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	public int getStockQuantity() {
+		return StockQuantity;
+	}
+
+	public void setStockQuantity(int stockQuantity) {
+		StockQuantity = stockQuantity;
 	}
 
 }

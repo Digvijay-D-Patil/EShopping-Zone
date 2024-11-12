@@ -16,7 +16,7 @@ import jakarta.persistence.OneToOne;
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 
 	@Column(nullable = false)
 	private Double totalPrice;
@@ -29,5 +29,36 @@ public class Cart {
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private Profile user;
 
-	// Getters and Setters
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public Profile getUser() {
+		return user;
+	}
+
+	public void setUser(Profile user) {
+		this.user = user;
+	}
+
 }

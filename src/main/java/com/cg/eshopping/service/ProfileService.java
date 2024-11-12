@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cg.eshopping.dto.ProfileDTO;
+import com.cg.eshopping.entity.Profile;
 
 public interface ProfileService {
 	ProfileDTO createProfile(ProfileDTO profileDTO);
@@ -17,4 +18,8 @@ public interface ProfileService {
 	List<ProfileDTO> getAllProfiles();
 
 	void deleteProfile(Long id);
+
+	Profile convertDTOToEntity(ProfileDTO profileDTO);
+
+	ProfileDTO convertEntityToDTO(Profile profile);
 }
