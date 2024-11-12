@@ -95,7 +95,7 @@ public class CartServiceImpl implements CartService {
 		return itemDTO;
 	}
 
-	private Cart convertDTOToEntity(CartDTO cartDTO) {
+	public Cart convertDTOToEntity(CartDTO cartDTO) {
 		Cart cart = new Cart();
 		cart.setId(cartDTO.getId());
 		cart.setTotalPrice(cartDTO.getTotalPrice());

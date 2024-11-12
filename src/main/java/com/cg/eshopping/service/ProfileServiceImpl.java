@@ -414,6 +414,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 
 		Profile profile = new Profile();
+		profile.setId(profileDTO.getId());
 		profile.setEmail(profileDTO.getEmail());
 		profile.setPassword(profileDTO.getPassword());
 		profile.setRole(profileDTO.getRole());

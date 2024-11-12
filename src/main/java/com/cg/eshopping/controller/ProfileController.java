@@ -91,6 +91,7 @@ import com.cg.eshopping.dto.ProfileDTO;
 import com.cg.eshopping.service.ProfileServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/profiles")
@@ -101,14 +102,14 @@ public class ProfileController {
 
 	@Operation(summary = "Create a new profile")
 	@PostMapping("/add")
-	public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) {
+	public ResponseEntity<ProfileDTO> createProfile(@Valid @RequestBody ProfileDTO profileDTO) {
 		ProfileDTO createdProfile = profileService.createProfile(profileDTO);
 		return new ResponseEntity<>(createdProfile, HttpStatus.CREATED); // Returns status 201 Created
 	}
 
 	@Operation(summary = "Update an existing profile by ID")
 	@PutMapping("/{id}")
-	public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long id, @RequestBody ProfileDTO profileDTO) {
+	public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long id, @Valid @RequestBody ProfileDTO profileDTO) {
 		ProfileDTO updatedProfile = profileService.updateProfile(id, profileDTO);
 		return new ResponseEntity<>(updatedProfile, HttpStatus.OK); // Returns status 200 OK
 	}

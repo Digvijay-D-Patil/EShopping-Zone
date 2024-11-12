@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Product {
@@ -22,7 +22,7 @@ public class Product {
 	private Double price;
 	private int StockQuantity;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "merchant_id")
 	private Profile merchant; // Merchant who added this product
 
