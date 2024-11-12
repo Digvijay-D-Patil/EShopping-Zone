@@ -104,7 +104,7 @@ public class Profile {
 
 }
 
-// A Profile has a Wallet, Address, and Orders.
+// A Profile has a Wallet, Address
 // A Cart contains multiple Items, and each Item is linked to a Product.
 // A Wallet holds multiple Statements.
 // The Role enum allows for role-based access control in your application, enabling different actions based on whether the Profile has a MERCHANT, USER, or DELIVERY_AGENT role.

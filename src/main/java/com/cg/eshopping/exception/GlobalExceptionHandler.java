@@ -23,4 +23,9 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(IllegalArgsException.class)
+	public ResponseEntity<String> illegalArgumentHandler(IllegalArgsException ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
 }

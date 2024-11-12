@@ -13,6 +13,7 @@ import com.cg.eshopping.dto.ProductDTO;
 import com.cg.eshopping.dto.ProfileDTO;
 import com.cg.eshopping.entity.Product;
 import com.cg.eshopping.exception.ProductNotFoundException;
+import com.cg.eshopping.exception.ProfileNotFoundException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -34,22 +35,29 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> getAllProducts() {
+
 		List<Product> products = productRepository.findAll();
-		return products.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
+
+		if (!products.isEmpty()) {
+			return products.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
+		} else {
+			throw new ProfileNotFoundException("Profile list is empty");
+		}
+
 	}
 
 	@Override
 	public Optional<ProductDTO> getProductById(int productId) {
+
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
 		return Optional.of(convertEntityToDTO(product));
+
 	}
 
 	@Override
 	public Optional<ProductDTO> getProductByName(String productName) {
 		Optional<Product> byProductName = productRepository.findByName(productName);
-//				.orElseThrow(() -> new ProductNotFoundException("Product not found with name: " + productName));
-//		return Optional.of(convertEntityToDTO(product));
 
 		if (byProductName.isEmpty()) {
 			throw new ProductNotFoundException("Product not found with name: " + productName);
