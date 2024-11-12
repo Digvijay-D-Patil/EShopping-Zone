@@ -6,6 +6,8 @@ import java.util.Set;
 public class OrderDTO {
 	private Long id;
 
+	private Long cartId;
+
 //	@NotNull(message = "Total price is mandatory")
 //	private Double totalPrice;
 
@@ -14,6 +16,14 @@ public class OrderDTO {
 	private LocalDateTime orderDate;
 
 	// Getters and Setters
+
+	public Long getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Long cartId) {
+		this.cartId = cartId;
+	}
 
 	public LocalDateTime getOrderDate() {
 		return orderDate;
